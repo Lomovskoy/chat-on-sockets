@@ -15,13 +15,18 @@ public class OutPrinter implements Runnable {
     
     //Обьект отправляющий сообщения на сервер
     PrintWriter messageToServer;
-    //Обьект читающий сообщения к клавиатуры
+    //Обьект читающий сообщения c клавиатуры
     BufferedReader keyBoardRead;
     //Создаём логгер
     static final Logger LOG = Logger.getLogger(Connect.class.getName());
     //Поре харанящее логин
     String login;
 
+    /**
+     * Метод отправки сообщений на сервер
+     * @param messageToServer
+     * @param login
+     */
     public OutPrinter(PrintWriter messageToServer, String login) {
         //Присваиваем объекту передачи сообщение на сервер, 
         //занчение через конструктор

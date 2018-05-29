@@ -5,7 +5,6 @@ import javax.swing.text.DefaultCaret;
 
 /**
  * Графический интерфейс для чата
- *
  * @author imxo
  */
 public class Gui extends javax.swing.JFrame {
@@ -19,6 +18,15 @@ public class Gui extends javax.swing.JFrame {
         initComponents();
         DefaultCaret caret = (DefaultCaret) chat.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            
+            @Override
+            public void run() {
+                app.outUser();
+            }
+        });
+
     }
 
     /**
@@ -45,15 +53,24 @@ public class Gui extends javax.swing.JFrame {
         userText = new javax.swing.JTextArea();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Chat on Sockets 20018");
+        setTitle("Chat on Sockets Lomovskoy 2018");
+        setAlwaysOnTop(true);
         setIconImages(null);
         setResizable(false);
 
-        ip.setText("localhost");
+        ip.setText("ivkhk-dev.ee");
+        ip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ipActionPerformed(evt);
+            }
+        });
 
-        socet.setText("3001");
+        socet.setText("3002");
 
         login.setText("login");
 
@@ -82,7 +99,7 @@ public class Gui extends javax.swing.JFrame {
         });
 
         userText.setColumns(20);
-        userText.setRows(5);
+        userText.setRows(4);
         jScrollPane3.setViewportView(userText);
 
         buttonGroup1.add(jRadioButton3);
@@ -91,6 +108,12 @@ public class Gui extends javax.swing.JFrame {
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Личный чат");
+
+        jLabel1.setText("В чате:");
+
+        jLabel2.setText("Чат:");
+
+        jLabel3.setText("Ваше сообщение:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,19 +136,32 @@ public class Gui extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jRadioButton3)
                                     .addComponent(jRadioButton4)))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(156, 156, 156)
+                                .addComponent(jLabel2)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(64, 64, 64))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(EnterButton))
                     .addComponent(jScrollPane3)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(251, 251, 251))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,11 +172,18 @@ public class Gui extends javax.swing.JFrame {
                             .addComponent(socet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ConnectButton)
                             .addComponent(jRadioButton4))
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel2)
+                        .addGap(2, 2, 2)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(1, 1, 1)
+                .addComponent(jLabel3)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EnterButton)
                 .addContainerGap())
@@ -177,6 +220,14 @@ public class Gui extends javax.swing.JFrame {
         userText.setText("");
     }//GEN-LAST:event_EnterButtonActionPerformed
 
+    private void ipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ipActionPerformed
+
+    /**
+     * Главные метод графического интерфейса
+     * @param args
+     */
     public static void main(String args[]) {
         /* Установите внешний вид Nimbus */
         // <editor-fold defaultstate = "collapsed" desc = "Код настройки внешнего вида (необязательно)">
@@ -203,10 +254,23 @@ public class Gui extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * ВЫвод сообщение в чат
+     * @param message
+     */
     public void write(String message) {
-        
         chat.append(message + "\n");
     }
+
+    /**
+     * Вывод списка пользователей онлайн
+     * @param users
+     */
+    public void usrtListWrite(String users) {
+
+        userList.setText(users);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ConnectButton;
@@ -214,6 +278,9 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextArea chat;
     private javax.swing.JTextField ip;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;

@@ -6,13 +6,14 @@
 package server;
 
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
 import java.net.ServerSocket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Класс включения сервера и добавления нового пользователя.
- * @author Kirill
+ * @author Lomovskoy
  */
 public class RunServer {
     
@@ -27,6 +28,17 @@ public class RunServer {
     public static void main(String[] args) throws IOException, InterruptedException {
         //Создаём порт который будет слушать сервер
         int port = 3001;
+        
+        //Если порт передан то брать его
+        if(args.length > 0){
+            try {
+                port = parseInt(args[0]);
+            } catch (Exception e) {
+                port = 3001;
+                LOG.log(Level.INFO, "порт: {0} неверен", args[0]);
+            }
+        }
+        
         //Условие работы цыкла
         Boolean working = true;
         //Создаём сокет для работы сервера

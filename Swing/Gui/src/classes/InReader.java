@@ -19,6 +19,11 @@ public class InReader implements Runnable{
     //Создаём логгер
     static final Logger LOG = Logger.getLogger(Connect.class.getName());
 
+    /**
+     * Метод чтения с сервера
+     * @param inRead
+     * @param connect
+     */
     public InReader(BufferedReader inRead, Connect connect) {
         //Присваеваем ему значение читальщика с сервера
         this.inRead = inRead;

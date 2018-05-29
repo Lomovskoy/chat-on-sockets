@@ -4,14 +4,14 @@ import gui.Gui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.logging.Level;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 /**
  * Класс соединения c сервером
- *
  * @author Kiril
  */
 public class Connect {
@@ -41,6 +41,13 @@ public class Connect {
     
     OutPrinter outPrinter;
 
+    /**
+     * Метод для соединения с сервером
+     * @param ip
+     * @param port
+     * @param login
+     * @param gui
+     */
     public Connect(String ip, int port, String login, Gui gui) {
         //Получаем Ip с формы
         this.ip = ip;
@@ -55,9 +62,9 @@ public class Connect {
             //Устанавливаем соединение с сервером
             connections = new Socket(this.ip, this.port);
             //Создаём обьект сообщения от сервера
-            messageFromServer = new BufferedReader(new InputStreamReader(connections.getInputStream()));
+            messageFromServer = new BufferedReader(new InputStreamReader(connections.getInputStream(), "UTF8"));
             //Создаём обьект сообщения для сервера
-            messageToServer = new PrintWriter(connections.getOutputStream(), true);
+            messageToServer = new PrintWriter(new OutputStreamWriter(connections.getOutputStream(), StandardCharsets.UTF_8),true);
             //Создаём обьект считывания с клавиатуты
             kbRead = new BufferedReader(new InputStreamReader(System.in));
         } catch (IOException ex) {
@@ -68,6 +75,9 @@ public class Connect {
         //ОтправитьНаСервер(login);
     }
 
+    /**
+     * Метод чтения с сервера запускаемый в новом потоке
+     */
     public void run() {
         //Создаём новый обьект чтения от сервера
         InReader inReader = new InReader(messageFromServer, this);
@@ -80,7 +90,19 @@ public class Connect {
      * @param message 
      */
     public void getFromServer(String message) {
-        gui.write(message);
+        String ch = message.substring(0,1);
+        if("0".equals(ch)){
+            message = message.replace("0", "");
+            gui.write(message);
+        }
+        else if("1".equals(ch)){
+            message = message.replace("1", "");
+            message = message.replace("|", "\n");
+            //String[] isbnParts = isbn.split("-");
+            gui.usrtListWrite(message);
+        }else{
+            gui.write("Неизвестный формат ответа от сервера.");
+        }
     }
     /**
      * Отправить на сервер
@@ -88,5 +110,11 @@ public class Connect {
      */
     public void sendToServer(String message) {
         messageToServer.println(message);
+    }
+    /**
+     * Завершение работы по крестику
+     */
+    public void outUser(){
+        messageToServer.println("stop");
     }
 }
