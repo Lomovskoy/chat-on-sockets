@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 /**
  * Класс печатающий в окно чата
- * @author Kiril
+ * @author Lomovskoy
  */
 public class OutPrinter implements Runnable {
     
@@ -39,6 +39,7 @@ public class OutPrinter implements Runnable {
 
     @Override
     public void run() {
+        
         messageToServer.println(login);
         //Запускаем бесконечный цикл
         do {

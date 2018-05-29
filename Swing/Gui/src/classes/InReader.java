@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 /**
  * Класс считывающий с сервера
- * @author Kiril
+ * @author Lomovskoy
  */
 public class InReader implements Runnable{
     //Создаём объект чтения 

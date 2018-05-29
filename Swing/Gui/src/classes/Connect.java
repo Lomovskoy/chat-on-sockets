@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 /**
  * Класс соединения c сервером
- * @author Kiril
+ * @author Lomovskoy
  */
 public class Connect {
 

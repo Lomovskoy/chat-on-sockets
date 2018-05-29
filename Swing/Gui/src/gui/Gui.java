@@ -206,12 +206,18 @@ public class Gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ConnectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnectButtonActionPerformed
-        //Создание объекта подключение
-        int socetInt = Integer.parseInt(socet.getText());
-        app = new Connect(ip.getText(), socetInt, login.getText(), this);
-        //Запускаем подключение
-        app.run();
-        app.sendToServer(login.getText());
+
+        //Если логин изменён и не пустой
+        if(!login.getText().equals("") && !login.getText().equals("login")){
+            //Создание объекта подключение
+            int socetInt = Integer.parseInt(socet.getText());
+            app = new Connect(ip.getText(), socetInt, login.getText(), this);
+            //Запускаем подключение
+            app.run();
+            app.sendToServer(login.getText());
+        }else{
+            chat.setText("Ошибка соединения, введите ваш login.");
+        }
     }//GEN-LAST:event_ConnectButtonActionPerformed
 
     private void EnterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterButtonActionPerformed
